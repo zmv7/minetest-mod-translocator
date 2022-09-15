@@ -1,7 +1,7 @@
 # minetest-mod-translocator
 Teleportation tool inspired by Unreal Tournament 2004
 ### Usage
-* First, shoot(Left Mouse Button) a disk in the direction you want to teleport
+* First, shoot(Left Mouse Button) a disk in the direction you want to teleport to
 * Click LMB again to teleport to the position of throwed disk
 
 ### License of media (model and textures)
