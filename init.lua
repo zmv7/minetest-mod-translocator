@@ -1,23 +1,10 @@
 local throwed = {}
 
-core.register_tool("translocator:translocator", {
-  wield_scale = {x=1.5,y=1.5,z=0.8},
-  description = "Translocator",
-  inventory_image = "translocator.png",
-  on_use = function(itemstack, player, pointed_thing)
+local function translocate(itemstack, player)
+	if not (itemstack and player) then return end
 	local name = player:get_player_name()
 	local creative = core.check_player_privs(name, {creative = true})
-	local pos = player:get_pos()
-	local dir = player:get_look_dir()
-	if pos and dir and not throwed[name] then
-		pos.y = pos.y + 1.5
-		local obj = core.add_entity(pos, "translocator:disk")
-		if obj then
-			obj:set_velocity({x=dir.x * 15, y=dir.y * 15, z=dir.z * 15})
-			obj:set_acceleration({x=0,z=0,y=-4})
-			throwed[name] = obj
-		end
-	elseif throwed[name] then
+	if throwed[name] then
 		local obj = throwed[name]
 		local pos = obj:get_pos()
 		if pos then
@@ -31,9 +18,43 @@ core.register_tool("translocator:translocator", {
 		if core.get_modpath("tpr") then
 			core.sound_play("tpr_warp",{to_player = name})
 		end
+		return itemstack
+	end
+end
+
+core.register_tool("translocator:translocator", {
+  wield_scale = {x=1.5,y=1.5,z=0.8},
+  description = "Translocator",
+  inventory_image = "translocator.png",
+  on_use = function(itemstack, player, pointed_thing)
+	local name = player:get_player_name()
+	local creative = core.check_player_privs(name, {creative = true})
+	local pos = player:get_pos()
+	local dir = player:get_look_dir()
+	if pos and dir then
+		if throwed[name] then
+			throwed[name]:remove()
+		end
+		pos.y = pos.y + 1.5
+		local obj = core.add_entity(pos, "translocator:disk")
+		if obj then
+			obj:set_velocity({x=dir.x * 15, y=dir.y * 15, z=dir.z * 15})
+			obj:set_acceleration({x=0,z=0,y=-4})
+			throwed[name] = obj
+			if not creative then
+				itemstack:add_wear(220)
+			end
+		end
 	end
 	return itemstack
-end})
+	end,
+	on_place = function(itemstack, player)
+		return translocate(itemstack, player)
+	end,
+	on_secondary_use = function(itemstack, player)
+		return translocate(itemstack, player)
+	end
+})
 
 local disk = {
 	armor_groups = {immortal = true},
