@@ -47,13 +47,13 @@ core.register_tool("translocator:translocator", {
 		end
 	end
 	return itemstack
-	end,
-	on_place = function(itemstack, player)
-		return translocate(itemstack, player)
-	end,
-	on_secondary_use = function(itemstack, player)
-		return translocate(itemstack, player)
-	end
+  end,
+  on_place = function(itemstack, player)
+	return translocate(itemstack, player)
+  end,
+  on_secondary_use = function(itemstack, player)
+	return translocate(itemstack, player)
+  end
 })
 
 local disk = {
