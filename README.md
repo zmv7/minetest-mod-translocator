@@ -1,6 +1,6 @@
 # minetest-mod-translocator
 Teleportation tool inspired by Unreal Tournament 2004  
-![ContentDB](https://content.minetest.net/packages/Zemtzov7/translocator/shields/downloads/)
+[![ContentDB](https://content.minetest.net/packages/Zemtzov7/translocator/shields/downloads/)](https://content.minetest.net/packages/Zemtzov7/translocator/)
 ### Usage
 * Shoot disk using Left Mouse Button in the direction you want to teleport to
 * Click Right Mouse Button to teleport to the position of throwed disk
